@@ -1,0 +1,34 @@
+{
+  "name": "layout",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve ",
+    "test": "vue-cli-service serve --mode test",
+    "pro": "vue-cli-service serve --mode production",
+    "xd": "vue-cli-service serve --mode xd",
+    "uat": "vue-cli-service serve --mode uat",
+    "build": "vue-cli-service build",
+    "buildT": "vue-cli-service build --mode test",
+    "buildP": "vue-cli-service build --mode production",
+    "buildXd": "vue-cli-service build -mode xd"
+  },
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "element-ui": "^2.13.0",
+    "filemanager-webpack-plugin": "^2.0.5",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.2.0",
+    "@vue/cli-service": "^4.2.0",
+    "babel-plugin-component": "^1.1.1",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
