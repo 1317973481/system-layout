@@ -1,7 +1,10 @@
 <!--  -->
 <template>
   <div>
-      <h2>选项2</h2>
+            <h2>选项2</h2>
+            <h2>选项2</h2>
+            <h2>选项2</h2>
+
   </div>
 </template>
 <script>
@@ -11,14 +14,9 @@ export default {
     return {}
   },
   components: {},
-  methods: {},
-  created(){},
-  activated(){},
-  deactivated(){},
-  created(){},
-  watch: {},
   computed: {},
   mounted(){},
+  methods: {}
 }
 </script>
 <style scoped>

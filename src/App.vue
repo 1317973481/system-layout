@@ -2,21 +2,25 @@
 <template>
   <div id="app">
     <layout>
-        <router-view #main>1555155</router-view>
+      <template #main>
+        <router-view ></router-view>
+      </template>
     </layout>
   </div>
 </template>
 <script>
 import layout from '@@@@/layout'
 export default {
-  name: '',
+  name: 'app',
   data() {
     return {}
   },
   components: {layout},
   computed: {},
   mounted(){},
-  methods: {}
+  methods: {},
+  created(){
+  }
 }
 </script>
 <style>

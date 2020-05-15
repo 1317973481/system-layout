@@ -16,10 +16,10 @@
             <el-submenu v-for="item in menuList" :key="item.id" :index="item.id">
               <template slot="title" v-if="item.type == 'parent'">
                 <i class="el-icon-location"></i>
-                <span>{{item.name}}</span>
+                <span>{{item.label}}</span>
               </template>
               <el-menu-item-group v-for="citem in item.children" :key="citem.id">
-                <el-menu-item :index="citem.id" @click="menuClick(citem)">{{citem.name}}</el-menu-item>
+                <el-menu-item :index="citem.id" @click="menuClick(citem)">{{citem.label}}</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       menuList,
-      tabList: [{ id:'1',name: "首页", type: "",path:'/',active:true }]
+      // tabList: [{ id:'1',name: "首页", type: "",path:'/',active:true }]
     };
   },
   components: {},
@@ -63,10 +63,13 @@ export default {
       // this.$refs.menuLeft.$el.style.height = document.body.clientHeight + 'px'
       document.querySelector(".menu-left-box").style.height =
         window.innerHeight - 10 + "px";
-      this.appendRouter(this.menuList)
     });
   },
-  computed: {},
+  computed: {
+    tabList(){
+      return this.$store.getters.getTabList;
+    }
+  },
   mounted() {},
   methods: {
     handleOpen(key, keyPath) {
@@ -76,12 +79,12 @@ export default {
       console.log(key, keyPath);
     },
     menuClick(item) {
-      this.tabList =  this.tabList.map((t)=>{
+      this.$store.commit('setTabList',this.$store.getters.getTabList.map((t)=>{
         t.active = false
         return t; 
-      })
-      if(!this.tabList.find((tag)=>tag.id == item.id)){
-          this.tabList.push({
+      }))
+      if(!this.$store.getters.getTabList.find((tag)=>tag.id == item.id)){
+          this.$store.commit('addTab',{
               id:item.id,
               path:item.path,
               name:item.name,
@@ -89,14 +92,13 @@ export default {
           })
           this.$store.commit('setActiveTabid',item.id)
       }else{
-        this.tabList =  this.tabList.map((t)=>{
+        this.$store.commit('setTabList',this.$store.getters.getTabList.map((t)=>{
             if(t.id == item.id){
                 t.active = true
             }
             return t;
-        })
+        }))
       }
-      debugger;
       this.$router.push({
           path:item.path
       })
@@ -105,13 +107,16 @@ export default {
         console.log(tag)
     },
     tabClick(tag){
-        this.tabList =  this.tabList.map((t)=>{
+      this.$store.commit('setTabList',this.$store.getters.getTabList.map((t)=>{
             if(t.id == tag.id){
                 t.active = true
             }else{
                 t.active = false;
             }
             return t;
+        }))
+        this.$router.push({
+          path:tag.path
         })
     },
     appendRouter(menu){

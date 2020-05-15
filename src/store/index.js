@@ -6,13 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     num:0,
-    activeTabid:'1'
+    activeTabid:'1',
+    tabList:[]
   },
   getters:{
     getNum:(sta)=>{
       return sta.num;
     },
-    getActiveTabid:(state)=>state.activeTabid
+    getActiveTabid:(state)=>state.activeTabid,
+    getTabList:(state) => state.tabList
   },
   mutations: {
     addNum(sta,par = 1){
@@ -20,7 +22,16 @@ export default new Vuex.Store({
     },
     setActiveTabid(state,id){
       state.activeTabid = id;
-    }
+    },
+    setTabList(state,tabList){
+      state.tabList = tabList;
+    },
+    addTab(state,tab){
+      state.tabList.push(tab);
+    },
+    removeTab(state,tabId){
+      state.tabList = state.tabList.filter(item => item != tabId);
+    },
   },
   actions: {
   },

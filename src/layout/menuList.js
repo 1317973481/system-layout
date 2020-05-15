@@ -1,31 +1,33 @@
+
+//通过后台加载
 const menu = [
     {
+        id: "1",
+        label: "首页",
+        path: "/",
+        name:'home',
+        isShow:false
+    },
+    {
         id: "2",
-        name: "选项",
-        path: "dd",
+        label: "选项",
+        path: "",
         type: "parent",
+        name:'option',
         children: [
             {
                 id: "3",
-                name: "选项1",
-                path: "option1",
+                label: "选项1",
+                path: "/option1",
+                name:'option1',
             },
             {
                 id: "4",
-                name: "选项2",
-                path: "option2"
+                label: "选项2",
+                name:'option2',
+                path: "/option2",
             },
-            {
-                id: "5",
-                name: "选项3",
-                path: "option3",
-            },
-            {
-                id: "6",
-                name: "选项4",
-                path: "option4"
-            }
         ]
     }
 ]
-export default menu
+export default menu.filter(item => item.isShow != false)
