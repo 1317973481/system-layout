@@ -90,7 +90,8 @@ function getPage(index = "index", entry = 'src/main.js', template = 'public/inde
       console.log('环境2：', process.env.NODE_ENV)
       console.log('process：', process.argv[4])
       config.resolve.alias = {
-        '@@@@': path.join(__dirname, 'src')
+        '@@@@': path.join(__dirname, 'src'),
+        '_src': path.join(__dirname, 'src')
       },
         //也就是说当遇到  require('./data')  这样的导入语句时，Webpack 会先去寻找  
         //./data.js  文件，如果该文件不存在就去寻找  ./data.json  文件， 如果还是找不到就报错。
