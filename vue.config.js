@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // 判断时候是生产环境 devxiugai  
 const isProd = process.env.NODE_ENV === 'production'
 console.log('环境1：', process.env.NODE_ENV);
-function getPage(index = "index", entry = 'src/main.js', template = 'public/index.html', filename = 'index') {
+function getPage(index = "index", entry = './src/entry/main/main.js', template = './public/index.html', filename = 'index') {
   return {
     [index]: {
       // page 的入口
@@ -31,10 +31,13 @@ function getPage(index = "index", entry = 'src/main.js', template = 'public/inde
     // subpage: 'src/subpage/main.js'} 
   }
 }
-  let pages = getPage()
-  // if (process.argv[4] == 'xd') {
-  //   pages = getPage('xd', 'src/views/xd-store/xd-index.js', 'public/xd.html', 'xd')
-  // }
+  let pages ;
+  if (process.argv[4] == 'developmtent') {
+    pages = undefined
+  }else if(process.argv[4] == 'xd'){
+    pages = getPage()
+    // pages = getPage('xd','./src/entry/xd/mian.js','./public/xd.html','xd')
+  }
   let _config = {
     publicPath: './',
     outputDir: 'dist',
@@ -46,49 +49,46 @@ function getPage(index = "index", entry = 'src/main.js', template = 'public/inde
       sourceMap: false
     },
     productionSourceMap: false,//生产环境的map
-    pages: {
-      index: {
-        // page 的入口
-        entry: 'src/main.js',
-        // 模板来源
-        template: 'public/index.html',
-        // 在 dist/index.html 的输出
-        filename: `index.html`,
-        // 当使用 title 选项时，template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-        // title: 'Index Page',
-        // 在这个页面中包含的块，默认情况下会包含
-        // 提取出来的通用 chunk 和 vendor chunk。
-        chunks: ['chunk-vendors', 'chunk-common', 'index']
-      }
-      // 当使用只有入口的字符串格式时，模板会被推导为 `public/subpage.html`，并且如果找不到的话，就回退到 `public/index.html`。
-      // 输出文件名会被推导为 `subpage.html`。
-      // subpage: 'src/subpage/main.js'} 
-    },
+    pages:pages,
     devServer: {
       https: false,
       port: 80,
-      // host: 'mcrm.staff.xdf.cn',
       host: 'localhost',
       // host: '10.200.80.17',
       disableHostCheck: true,
       open: true
     },
-    /*configureWebpack: {
-      plugins: config => {
-        if (process.env.NODE_ENV === 'production') {
-          // 为生产环境修改配置...
-        } else {
-          // 为开发环境修改配置...
-        }
-      },
-      performance: {
-        maxEntrypointSize: 2048000,
-        maxAssetSize: 2048000
-      }
-    },*/
+    // configureWebpack: {
+    //   entry:{
+    //     loading:'./src/entry/loading/index.js',
+    //     app:'./src/entry/main/main.js'
+    //   },
+    //   resolve:{
+    //     extensions: ['.js', '.vue', '.json'],
+    //     alias:{
+    //       '@@@@': path.join(__dirname, 'src'),
+    //       '_src': path.join(__dirname, 'src')
+    //     }
+    //   },
+    //   // plugins: config => {
+    //   //   if (process.env.NODE_ENV === 'production') {
+    //   //     // 为生产环境修改配置...
+    //   //   } else {
+    //   //     // 为开发环境修改配置...
+    //   //   }
+    //   // },
+    //   performance: {
+    //     maxEntrypointSize: 2048000,
+    //     maxAssetSize: 2048000
+    //   }
+    // },
     configureWebpack: config => {
       console.log('环境2：', process.env.NODE_ENV)
       console.log('process：', process.argv[4])
+      config.entry = {
+        loading:'./src/entry/loading/index.js',
+        app:'./src/entry/xd/main.js'
+      }
       config.resolve.alias = {
         '@@@@': path.join(__dirname, 'src'),
         '_src': path.join(__dirname, 'src')

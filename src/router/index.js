@@ -23,11 +23,41 @@ function arrFlat(item) {
 for (let key of menuList) {
   arrFlat(key);
 }
+let routes = [{
+    id:'404',
+    path:'/nofound',
+    label:'网页找不到',
+    name:'nofound',
+    component:()=>import('@@@@/views/nofound')
+  },{
+    id:'1',
+    path:'/',
+    label:'首页',
+    name:'home',
+    component:()=>import('@@@@/views/home')}
+  ]
 const router = new VueRouter({
-  routes:addRoutesList
+  routes:[...addRoutesList,...routes]
 })
+window.hasAddRouter = false;
 router.beforeEach((to, from, next) => {
-  router.addRoutes(addRoutesList)
-  next();
+  // if(window.sessionStorage.router){
+  //   router.addRoutes(JSON.parse(window.sessionStorage.router))
+  // }else{
+  //   window.sessionStorage.router = JSON.stringify(addRoutesList)
+  // }
+  if(!window.hasAddRouter){
+    router.addRoutes(addRoutesList);
+    window.hasAddRouter =  true;
+  }
+  console.log(to.path)
+  console.log(from.path)
+  if(addRoutesList.find(item =>item.path == to.path) || to.path == '/'){
+    next();
+  }else if(to.path == '/nofound'){
+    next()
+  }else{
+    next('/nofound')
+  }
 })
 export default router

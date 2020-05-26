@@ -7,7 +7,14 @@ export default new Vuex.Store({
   state: {
     num:0,
     activeTabid:'1',
-    tabList:[]
+    // tabList:[]
+    tabList:[{
+      id:'1',
+      path:'/',
+      label:'首页',
+      name:'home',
+      active:true
+    }]
   },
   getters:{
     getNum:(sta)=>{

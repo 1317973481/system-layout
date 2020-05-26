@@ -31,7 +31,7 @@
         <el-tag
             v-for="tag in tabList"
             :key="tag.name"
-            closable
+            :closable = "tag.name != 'home'"
             size="small"
             :effect="tag.active ? 'dark' : 'plain'"
             :type="tag.type"
@@ -63,6 +63,9 @@ export default {
       // this.$refs.menuLeft.$el.style.height = document.body.clientHeight + 'px'
       document.querySelector(".menu-left-box").style.height =
         window.innerHeight - 10 + "px";
+        this.$router.push({
+          path:'/'
+        })
     });
   },
   computed: {
@@ -79,6 +82,7 @@ export default {
       console.log(key, keyPath);
     },
     menuClick(item) {
+      if(item.id == this.$store.getters.getActiveTabid) return;
       this.$store.commit('setTabList',this.$store.getters.getTabList.map((t)=>{
         t.active = false
         return t; 
@@ -115,6 +119,7 @@ export default {
             }
             return t;
         }))
+        this.$store.commit('setActiveTabid',tag.id)
         this.$router.push({
           path:tag.path
         })

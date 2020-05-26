@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve ",
+    "dev": "vue-cli-service serve --mode developmtent",
     "test": "vue-cli-service serve --mode test",
     "pro": "vue-cli-service serve --mode production",
     "xd": "vue-cli-service serve --mode xd",
     "uat": "vue-cli-service serve --mode uat",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode developmtent",
     "buildT": "vue-cli-service build --mode test",
     "buildP": "vue-cli-service build --mode production",
     "buildXd": "vue-cli-service build -mode xd"

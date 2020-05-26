@@ -10,10 +10,14 @@ const config = {
     'test':{
         baseUrl:'test.api.com',
         authBaseUrl:'auth.test.api.com'
-    }
-    ,'uat':{
+    },
+    'uat':{
         baseUrl:'uat.api.com',
         authBaseUrl:'auth.uat.api.com'
+    },
+    'xd':{
+        baseUrl:'xd.api.com',
+        authBaseUrl:'auth.xd.api.com'
     }
 }
 export default config[process.env.NODE_ENV]
