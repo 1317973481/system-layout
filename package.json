@@ -3,20 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve --mode developmtent",
+    "dev": "vue-cli-service serve --mode dev",
     "test": "vue-cli-service serve --mode test",
-    "pro": "vue-cli-service serve --mode production",
+    "pro": "vue-cli-service serve --mode pro",
     "xd": "vue-cli-service serve --mode xd",
+    "gg": "vue-cli-service serve --mode gg",
     "uat": "vue-cli-service serve --mode uat",
-    "build": "vue-cli-service build --mode developmtent",
+    "build": "vue-cli-service build --mode dev",
     "buildT": "vue-cli-service build --mode test",
-    "buildP": "vue-cli-service build --mode production",
-    "buildXd": "vue-cli-service build -mode xd"
+    "buildP": "vue-cli-service build --mode pro",
+    "buildU": "vue-cli-service build --mode uat",
+    "buildXD": "vue-cli-service build -mode xd",
+    "buildGG": "vue-cli-service build --mode gg"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.0",
     "filemanager-webpack-plugin": "^2.0.5",
+    "less-loader": "^6.1.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.2"

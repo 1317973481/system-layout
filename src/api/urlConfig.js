@@ -1,3 +1,5 @@
+
+//此方式也可以用env.dev文件替代
 const config = {
     'production':{
         baseUrl:'pro.api.com',

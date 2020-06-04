@@ -1,19 +1,22 @@
 <!--  -->
 <template>
   <div id="app">
-    <h1>xdxdxd</h1>
-    <h1>xdxdxd</h1>
-    <h1>xdxdxd</h1>
+
+    <h1>{{data}}入口</h1>
+    <urlConfigT></urlConfigT>
+
   </div>
 </template>
 <script>
-import layout from '@@@@/layout'
+import urlConfigT from '@@@@/views/urlConfigT'
 export default {
   name: 'app',
   data() {
-    return {}
+    return {
+      data:process.env.NODE_ENV
+    }
   },
-  components: {layout},
+  components: {urlConfigT},
   computed: {},
   mounted(){},
   methods: {},

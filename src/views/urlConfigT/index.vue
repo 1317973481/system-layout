@@ -3,12 +3,11 @@
   <div>环境变量：{{url}}</div>
 </template>
 <script>
-import urlConfig from '../../api/urlConfig.js'
 export default {
   name: 'urlConfigT',
   data() {
     return {
-        url:urlConfig.baseUrl 
+      url:''
     }
   },
   components: {},
@@ -16,8 +15,8 @@ export default {
   mounted: () => {},
   methods: {},
   created(){
+    this.url =  process.env.NODE_ENV
       console.log(process.env)
-      console.log(urlConfig)
   }
 }
 </script>

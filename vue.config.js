@@ -9,35 +9,37 @@ const path = require('path')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // 判断时候是生产环境 devxiugai  
-const isProd = process.env.NODE_ENV === 'production'
-console.log('环境1：', process.env.NODE_ENV);
-function getPage(index = "index", entry = './src/entry/main/main.js', template = './public/index.html', filename = 'index') {
-  return {
-    [index]: {
-      // page 的入口
-      entry: entry,
-      // 模板来源afdsfasdfasdfdsa
-      template: template,
-      // 在 dist/index.html 的输出
-      filename: `${filename}.html`,
-      // 当使用 title 选项时，template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-      // title: 'Index Page',
-      // 在这个页面中包含的块，默认情况下会包含
-      // 提取出来的通用 chunk 和 vendor chunk。
-      chunks: ['chunk-vendors', 'chunk-common', 'index']
-    }
-    // 当使用只有入口的字符串格式时，模板会被推导为 `public/subpage.html`，并且如果找不到的话，就回退到 `public/index.html`。
-    // 输出文件名会被推导为 `subpage.html`。
-    // subpage: 'src/subpage/main.js'} 
-  }
-}
-  let pages ;
-  if (process.argv[4] == 'developmtent') {
-    pages = undefined
-  }else if(process.argv[4] == 'xd'){
-    pages = getPage()
-    // pages = getPage('xd','./src/entry/xd/mian.js','./public/xd.html','xd')
-  }
+const _isProd = process.env.NODE_ENV === 'production';
+console.log('_isProd',_isProd)
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+console.log('process：', process.argv[4])
+console.log('process.env.VUE_APP_BASE_API',process.env.VUE_APP_BASE_API)
+// function getPage(index = "index", entry = './src/entry/main/main.js', template = './src/entry/main/index.html', filename = 'index') {
+//   return {
+//     [index]: {
+//       // page 的入口
+//       entry: entry,
+//       // 模板来源afdsfasdfasdfdsay
+//       template: template,
+//       // 在 dist/index.html 的输出
+//       filename: `${filename}.html`,
+//       // 当使用 title 选项时，template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+//       // title: 'Index Page',
+//       // 在这个页面中包含的块，默认情况下会包含
+//       // 提取出来的通用 chunk 和 vendor chunk。
+//       chunks: ['chunk-vendors', 'chunk-common', index]
+//     }
+//     // 当使用只有入口的字符串格式时，模板会被推导为 `public/subpage.html`，并且如果找不到的话，就回退到 `public/index.html`。
+//     // 输出文件名会被推导为 `subpage.html`。
+//     // subpage: 'src/subpage/main.js'} 
+//   }
+// }
+//   let pages =undefined ;
+//   if(process.argv[4] == 'xdddd'){
+//     pages = getPage('xd','./src/entry/xd/mian.js','./src/entry/xd/index.html','xd')
+//   }else{
+//     pages = undefined
+//   }
   let _config = {
     publicPath: './',
     outputDir: 'dist',
@@ -49,14 +51,24 @@ function getPage(index = "index", entry = './src/entry/main/main.js', template =
       sourceMap: false
     },
     productionSourceMap: false,//生产环境的map
-    pages:pages,
+    // pages:pages,
     devServer: {
       https: false,
       port: 80,
       host: 'localhost',
       // host: '10.200.80.17',
       disableHostCheck: true,
-      open: true
+      // open: true,
+      proxy: {
+      '/testproxy': {    // api为转发路径
+        target: 'http://testapicrm.staff.xdf.cn',  // 目标地址
+        ws: true, // 是否代理websockets
+        changeOrigin: true,   // 设置同源  默认false，是否需要改变原始主机头为目标URL,
+        pathRewrite: {
+          '^/testproxy': ''  // rewrite path
+        }
+      }
+    }
     },
     // configureWebpack: {
     //   entry:{
@@ -83,12 +95,18 @@ function getPage(index = "index", entry = './src/entry/main/main.js', template =
     //   }
     // },
     configureWebpack: config => {
-      console.log('环境2：', process.env.NODE_ENV)
-      console.log('process：', process.argv[4])
-      config.entry = {
-        loading:'./src/entry/loading/index.js',
-        app:'./src/entry/xd/main.js'
+      if(process.argv[4] == 'gg'){
+        config.entry = {
+          loading:'./src/entry/loading/index.js',
+          app:'./src/entry/gg/main.js'
+        }
+      }else{
+        config.entry = {
+          loading:'./src/entry/loading/index.js',
+          app:'./src/entry/main/main.js'
+        }
       }
+
       config.resolve.alias = {
         '@@@@': path.join(__dirname, 'src'),
         '_src': path.join(__dirname, 'src')
@@ -104,7 +122,7 @@ function getPage(index = "index", entry = './src/entry/main/main.js', template =
         后，你可以简单通过  import 'button'  导入。
        */
       // config.resolve.modules =['./src/components','node_modules'];
-      if(process.argv[4] == 'xd'){
+      if(process.argv[4] == 'gg'){
         config.plugins.push(
           new CopyWebpackPlugin([{
             from: path.resolve(__dirname, 'src', 'lib/copy.js'),
